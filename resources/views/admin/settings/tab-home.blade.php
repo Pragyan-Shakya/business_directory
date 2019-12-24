@@ -1,0 +1,46 @@
+<div class="tab-pane" id="home">
+    <div class="col-md-8" style="margin-top:20px;">
+        <div class="col-sm-12">
+            <h4>Category Section 1 </h4>
+        </div>
+
+        <div class="form-group">
+            <label for="home_products_section1" class="col-sm-2 control-label">Select Options</label>
+            <div class="col-sm-10">
+                <div class="product-categories-dropdown">
+                    {!! Form::select('products_section_1[]', $categories, $selectedCategories_1, ['class' => 'form-control full-width select2']) !!}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <h4>Category Section 2 </h4>
+        </div>
+
+        <div class="form-group">
+            <label for="home_products-section1" class="col-sm-2 control-label">Select Options</label>
+            <div class="col-sm-10">
+                <div class="product-categories-dropdown">
+                    {!! Form::select('products_section_2[]', $categories, $selectedCategories_2, ['class' => 'form-control full-width select2']) !!}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <h4>Category Section 3 </h4>
+        </div>
+
+        <div class="form-group">
+            <label for="home_products-section4" class="col-sm-2 control-label">Select Options</label>
+            <div class="col-sm-10">
+                <div class="product-categories-dropdown">
+                    {!! Form::select('products_section_3[]', $categories, $selectedCategories_3, ['class' => 'form-control full-width select2']) !!}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- /.tab-pane -->
