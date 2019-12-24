@@ -8,8 +8,10 @@
 </p>
 
 ## Todo
-composer install
-npm install
+<ul>
+    <li>composer install</li>
+    <li>npm install</li>
+<ul>
 
 
 
