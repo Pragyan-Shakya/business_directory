@@ -24,7 +24,7 @@
                         </div>
                         {{--////////////DataTable Start--}}
                         <div class="box-body">
-                            <table id="blogs_list" class="table table-bordered table-striped table-hover">
+                            <table id="blogs_list" class="table table-bordered table-striped table-hover text-center">
                                 <thead>
                                 <tr>
                                     <th>S.N</th>
@@ -40,14 +40,14 @@
                                         <td>{{ $blog->title }}</td>
                                         <td>{{ $blog->author }}</td>
                                         <td>
-                                            <div class="row">
+                                            <div class="">
                                                 @can('blog-edit')
-                                                    <div class="col-md-6">
+                                                    <div class="btn-group">
                                                         <a href="{{ route('admin.blog.edit', $blog->id) }}" class="btn btn-primary" title="Edit"><i class="glyphicon glyphicon-pencil"></i></a>
                                                     </div>
                                                 @endcan
                                                 @can('blog-delete')
-                                                    <div class="col-md-6">
+                                                    <div class="btn-group">
                                                         <form action="{{ route('admin.blog.destroy', $blog->id) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')

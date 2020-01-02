@@ -44,11 +44,10 @@
                     <ul class="treeview-menu">
                         @can('user-list')<li class="{{ (\Request::is('admin/user')?'active':'') }}"><a href="{{ route('admin.user.index') }}"><i class="fa fa-circle-o"></i> View All</a></li>@endcan
                         @can('user-create')<li class="{{ (\Request::is('admin/user/create')?'active':'') }}"><a href="{{ route('admin.user.create') }}"><i class="fa fa-circle-o"></i> Add New</a></li>@endcan
-                        @can('employer-list')<li class="{{ (\Request::is('admin/employer*')?'active':'') }}"><a href="{{ route('admin.employer.index') }}"><i class="fa fa-circle-o"></i>Employer</a></li>@endcan
                     </ul>
                 </li>
             @endcan
-            @can(['role-list','role-create'])
+            @can(['role-list','role-create','role-moderate'])
                 <li class="{{ (\Request::is('admin/role*')||\Request::is('admin/permission*'))?'active':'' }} treeview">
                     <a href="#">
                         <i class="glyphicon glyphicon-lock"></i>
@@ -58,6 +57,7 @@
                     <ul class="treeview-menu">
                         @can('role-list')<li class="{{ (\Request::is('admin/role')?'active':'') }}"><a href="{{ route('admin.role.index') }}"><i class="fa fa-circle-o"></i> View All</a></li>@endcan
                         @can('role-create')<li class="{{ (\Request::is('admin/role/create')?'active':'') }}"><a href="{{ route('admin.role.create') }}"><i class="fa fa-circle-o"></i> Add New</a></li>@endcan
+                        @can('role-moderate')<li class="{{ (\Request::is('admin/moderator*')?'active':'') }}"><a href="{{ route('admin.moderator.index') }}"><i class="fa fa-circle-o"></i> Manage Moderator </a></li>@endcan
                         <li class="{{ (\Request::is('admin/permission*')?'active':'') }}"><a href="{{ route('admin.permission.index') }}"><i class="fa fa-circle-o"></i>Permission</a></li>
                     </ul>
                 </li>

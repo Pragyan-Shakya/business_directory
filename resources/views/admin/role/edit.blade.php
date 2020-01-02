@@ -114,6 +114,19 @@
 
                                         </div>
                                     </div>
+                                    <div class="col-md-3">
+                                        <h5>Manage Moderators</h5>
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
+                                                <label>Manage Moderators</label>
+                                                <div class="material-switch pull-right">
+                                                    <input id="role-moderate" name="permissions[]" type="checkbox" value="role-moderate"/>
+                                                    <label for="role-moderate" class="label-info"></label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3">

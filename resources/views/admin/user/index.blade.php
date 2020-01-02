@@ -24,7 +24,7 @@
                         </div>
                         {{--////////////DataTable Start--}}
                         <div class="box-body">
-                            <table id="user_list" class="table table-bordered table-hover">
+                            <table id="user_list" class="table table-bordered table-hover text-center">
                                 <thead>
                                 <tr>
                                     <th>S.N</th>
@@ -32,7 +32,7 @@
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Role</th>
-                                    <th>Make Employer</th>
+                                    <th>Company</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -54,27 +54,17 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @can('employer-create')
-                                                @if(!$user->isEmployer())
-                                                    <form action="{{ route('admin.employer.store') }}" method="POST">
-                                                        @csrf
-                                                        <input type="hidden" name="id" value="{{$user->id}}">
-                                                        <button class="btn btn-success btn-md" type="submit" title="Make Employer"><i class="fa fa-user-plus"></i></button>
-                                                    </form>
-                                                @else
-                                                    <button class="btn btn-success btn-md" title="Already a Employer" disabled="true"><i class="fa fa-user-plus"></i></button>
-                                                @endif
-                                            @endcan
+                                            {{ $user->company?$user->company->title:'' }}
                                         </td>
                                         <td>
-                                            <div class="row">
+                                            <div class="">
                                                 @can('user-edit')
-                                                    <div class="col-md-6">
+                                                    <div class="btn-group">
                                                         <a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-primary" title="Edit"><i class="glyphicon glyphicon-pencil"></i></a>
                                                     </div>
                                                 @endcan
                                                 @can('user-delete')
-                                                    <div class="col-md-6">
+                                                    <div class="btn-group">
                                                         <form action="{{ route('admin.user.destroy', $user->id) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
@@ -95,7 +85,7 @@
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Role</th>
-                                    <th>Make Employer</th>
+                                    <th>Company</th>
                                     <th>Action</th>
                                 </tr>
                                 </tfoot>

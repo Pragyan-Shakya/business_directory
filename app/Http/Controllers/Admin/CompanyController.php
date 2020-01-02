@@ -9,6 +9,7 @@ use App\Model\Company;
 use App\Model\Employer;
 use App\Model\Industry;
 use App\Repositories\Repository;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -48,8 +49,9 @@ class CompanyController extends Controller
     public function create()
     {
         $industries = Industry::where('status', 'Active')->get();
+        $users = User::whereDoesntHave('company')->get();
         $employers = Employer::all();
-        return view('admin.company.create', compact('industries', 'employers'));
+        return view('admin.company.create', compact('industries', 'employers', 'users'));
     }
 
     /**
@@ -58,38 +60,7 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CompanyRegisterRequest $request)
-    {
-        $data = $request->all();
-        unset($data['_token']);
-        $employer = Employer::find($request->employers_id);
-        if($files = $request->file('logo')) {
-//            if($user->avatar && is_file($user->avatar)){
-//                unlink($user->avatar);
-//            }
-            // for save original image
-            $ImageUpload = Image::make($files)->resize(200, 200);
-            $originalPath = 'public/assets/uploads/logos/'.time().$files->getClientOriginalName();
-            $ImageUpload->save($originalPath);
-            $data['logo'] = $originalPath;
-        }
-        if($files = $request->file('cover_image')) {
-//            if($user->avatar && is_file($user->avatar)){
-//                unlink($user->avatar);
-//            }
-            // for save original image
-            $ImageUpload = Image::make($files);
-            $originalPath = 'public/assets/uploads/cover_images/'.time().$files->getClientOriginalName();
-            $ImageUpload->save($originalPath);
-            $data['cover_image'] = $originalPath;
-        }
-        $data['user_id'] = $employer->user_id;
-        $data['slug'] = Str::slug($request->title);
-        $data['seo'] = $request->title;
 
-        $company = $this->model->create($data);
-        return redirect()->route('admin.company.index')->with('success', 'New Company added');
-    }
 
     /**
      * Display the specified resource.
@@ -113,8 +84,9 @@ class CompanyController extends Controller
         //
         $company = $this->model->show($id);
         $industries = Industry::where('status', 'Active')->get();
+        $users = User::whereDoesntHave('employer')->get();
         $employers = Employer::all();
-        return view('admin.company.edit', compact('company', 'industries', 'employers'));
+        return view('admin.company.edit', compact('company', 'industries', 'employers', 'users'));
     }
 
     /**
@@ -126,7 +98,6 @@ class CompanyController extends Controller
      */
     public function destroy($id)
     {
-        //
         $company = $this->model->show($id);
         if($company->logo && is_file($company->logo)){
             unlink($company->logo);
@@ -136,8 +107,6 @@ class CompanyController extends Controller
         }
         $this->model->delete($id);
         return redirect()->back()->with('success', 'Company Deleted!!!');
-
-
     }
 
     /**

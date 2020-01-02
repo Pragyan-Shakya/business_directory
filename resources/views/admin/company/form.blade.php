@@ -141,12 +141,12 @@
     <div class="col-md-12" style="margin-top: 10px; border-top: 1px dotted #aaa;">
         <div class="col-md-4">
             <h4><u>Employeer</u></h4>
-            <select name="employers_id" class="form-control" id="employers_id">
+            <select name="employers_id" class="form-control" id="user_id">
                 <option value="">Select Employer</option>
-                @foreach($employers as $employer)
+                @foreach($users as $employer)
                     <option value="{{ $employer->id }}"
                             {{isset($company->employers_id)?($company->employers_id == $employer->id?'selected':''):''}}>
-                        {{ $employer->get_name() }}
+                        {{ $employer->full_name() }}
                     </option>
                 @endforeach
             </select>
