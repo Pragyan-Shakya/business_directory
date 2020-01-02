@@ -24,11 +24,12 @@
                         </div>
                         {{--////////////DataTable Start--}}
                         <div class="box-body">
-                            <table id="companies_list" class="table table-bordered table-striped table-hover">
+                            <table id="companies_list" class="table table-bordered table-striped table-hover text-center">
                                 <thead>
                                 <tr>
                                     <th>S.N</th>
                                     <th>Title</th>
+                                    <th>Owner</th>
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Logo</th>
@@ -37,28 +38,30 @@
                                 </thead>
                                 <tbody>
                                 @foreach($companies as $company)
-                                    <tr>
+                                    <tr >
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $company->title }}</td>
+                                        <td>{{ $company->user?$company->user->full_name():'' }}</td>
                                         <td>{{ $company->email }}</td>
                                         <td>{{ $company->phone }} / {{ $company->mobile }}</td>
                                         <td><img src="{{ $company->get_logo() }}" alt="{{ $company->title }}" style="width:50px;"></td>
                                         <td>
-                                            <div class="row">
+                                            <div class="">
                                                 @can('company-edit')
-                                                    <div class="col-md-6">
-                                                        <a href="{{ route('admin.company.edit', $company->id) }}" class="btn btn-primary" title="Edit"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                    <div class="btn-group">
+                                                        <a href="{{ route('admin.company.edit', $company->id) }}" class="btn btn-primary " title="Edit"><i class="glyphicon glyphicon-pencil"></i></a>
                                                     </div>
                                                 @endcan
                                                 @can('company-delete')
-                                                    <div class="col-md-6">
+                                                    <div class="btn-group">
                                                         <form action="{{ route('admin.company.destroy', $company->id) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-remove-circle"></i></button>
+                                                            <button type="submit" class="btn btn-danger "><i class="glyphicon glyphicon-remove-circle"></i></button>
                                                         </form>
                                                     </div>
                                                 @endcan
+
                                             </div>
                                         </td>
                                     </tr>
@@ -68,6 +71,7 @@
                                 <tr>
                                     <th>S.N</th>
                                     <th>Title</th>
+                                    <th>Owner</th>
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Logo</th>

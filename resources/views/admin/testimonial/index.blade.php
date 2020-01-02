@@ -65,7 +65,7 @@
                         </div>
                         {{--////////////DataTable Start--}}
                         <div class="box-body">
-                            <table id="testimonial_list" class="table table-bordered table-striped table-hover">
+                            <table id="testimonial_list" class="table table-bordered table-striped table-hover text-center">
                                 <thead>
                                 <tr>
                                     <th>S.N</th>
@@ -85,14 +85,14 @@
                                         <td><img src="{{ $testimonial->get_avatar() }}" alt="{{ $testimonial->name }}" style="width: 50px;"></td>
                                         <td>{!! $testimonial->message !!}</td>
                                         <td>
-                                            <div class="row">
+                                            <div class="">
                                                 @can('testimonial-edit')
-                                                    <div class="col-md-6">
+                                                    <div class="btn-group">
                                                         <a href="{{ route('admin.testimonial.edit', $testimonial->id) }}" class="btn btn-primary" title="Edit"><i class="glyphicon glyphicon-pencil"></i></a>
                                                     </div>
                                                 @endcan
                                                 @can('testimonial-delete')
-                                                    <div class="col-md-6">
+                                                    <div class="btn-group">
                                                         <form action="{{ route('admin.testimonial.destroy', $testimonial->id) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')

@@ -53,7 +53,7 @@
                         </div>
                         {{--////////////DataTable Start--}}
                         <div class="box-body">
-                            <table id="industry_list" class="table table-bordered table-striped table-hover">
+                            <table id="industry_list" class="table table-bordered table-striped table-hover text-center">
                                 <thead>
                                 <tr>
                                     <th>S.N</th>
@@ -69,14 +69,14 @@
                                         <td>{{ $industry->title }}</td>
                                         <td>{{ $industry->status }}</td>
                                         <td>
-                                            <div class="row">
+                                            <div class="">
                                                 @can('industry-edit')
-                                                    <div class="col-md-6">
+                                                    <div class="btn-group">
                                                         <a href="{{ route('admin.industry.edit', $industry->id) }}" class="btn btn-primary" title="Edit"><i class="glyphicon glyphicon-pencil"></i></a>
                                                     </div>
                                                 @endcan
                                                 @can('industry-delete')
-                                                    <div class="col-md-6">
+                                                    <div class="btn-group">
                                                         <form action="{{ route('admin.industry.destroy', $industry->id) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')

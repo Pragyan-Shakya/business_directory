@@ -46,6 +46,14 @@ Route::group([
     Route::resource('/testimonial', 'TestimonialController');
     //////////////////// Testimonial
     Route::resource('/blog', 'BlogController');
+    //////////////////// Moderator
+    Route::get('/moderator/getCompanies/{id}', 'ModeratorController@getCompanies')->name('moderator.getCompanies');
+    Route::get('/moderator/getUsers/{id}', 'ModeratorController@getUsers')->name('moderator.getUsers');
+    Route::get('/moderator/assignCompany', 'ModeratorController@assignCompany')->name('moderator.assignCompany');
+    Route::get('/moderator/revokeCompany', 'ModeratorController@revokeCompany')->name('moderator.revokeCompany');
+    Route::get('/moderator/assignUser', 'ModeratorController@assignUser')->name('moderator.assignUser');
+    Route::get('/moderator/revokeUser', 'ModeratorController@revokeUser')->name('moderator.revokeUser');
+    Route::resource('/moderator', 'ModeratorController');
 });
 ////////// User Dashboard Routes
 Route::group([

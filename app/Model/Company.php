@@ -20,13 +20,20 @@ class Company extends Model
         'industry_id',
         'ownership',
         'established_date',
-        'employers_id',
+        'moderator_id',
         'logo',
         'cover_image',
         'user_id',
         'slug',
         'seo',
     ];
+
+    public function user(){
+        return $this->belongsTo('App\User', 'user_id');
+    }
+    public function moderator(){
+        return $this->belongsTo('App\User', 'moderator_id');
+    }
 
     public function get_logo(){
         if(filter_var($this->logo, FILTER_VALIDATE_URL)){

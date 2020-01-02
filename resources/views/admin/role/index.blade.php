@@ -87,7 +87,6 @@
                                 <h3><u>Permissions</u></h3>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h5>Dashboard Access</h5>
                                         <div class="form-group row">
                                             <div class="col-md-12">
                                                 <label>Access Dashboard</label>
@@ -100,13 +99,24 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12">
-                                        <h5>Settings Access</h5>
                                         <div class="form-group row">
                                             <div class="col-md-12">
                                                 <label>Update Settings</label>
                                                 <div class="material-switch pull-right">
                                                     <input id="change-settings" name="permissions[]" type="checkbox" value="change-settings"/>
                                                     <label for="change-settings" class="label-info"></label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
+                                                <label>Manage Moderators</label>
+                                                <div class="material-switch pull-right">
+                                                    <input id="role-moderate" name="permissions[]" type="checkbox" value="role-moderate"/>
+                                                    <label for="role-moderate" class="label-info"></label>
                                                 </div>
                                             </div>
 
@@ -350,6 +360,7 @@
 
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                             @can('role-create')
@@ -370,7 +381,7 @@
                         </div>
                         {{--////////////DataTable Start--}}
                         <div class="box-body">
-                            <table id="role_list" class="table table-bordered table-hover">
+                            <table id="role_list" class="table table-bordered table-hover text-center">
                                 <thead>
                                 <tr>
                                     <th style="width: 10%">S.N</th>
@@ -384,14 +395,14 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $role->name }}</td>
                                         <td>
-                                            <div class="row">
+                                            <div class="">
                                                 @can('role-edit')
-                                                    <div class="col-md-6">
+                                                    <div class="btn-group">
                                                         <a href="{{ route('admin.role.edit', $role->id) }}" class="btn btn-primary" title="Edit"><i class="glyphicon glyphicon-pencil"></i></a>
                                                     </div>
                                                 @endcan
                                                 @can('role-delete')
-                                                    <div class="col-md-6">
+                                                    <div class="btn-group">
                                                         <form action="{{ route('admin.role.destroy', $role->id) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')

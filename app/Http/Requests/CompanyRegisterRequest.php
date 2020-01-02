@@ -38,7 +38,7 @@ class CompanyRegisterRequest extends FormRequest
             'industry_id' => 'required',
             'ownership' => 'required',
             'established_date' => 'nullable',
-            'employers_id' => 'required',
+            'employers_id' => 'nullable',
             'logo' => 'nullable|image|mimes:jpg,jpeg,png,gif',
             'cover_image' => 'nullable|image|mimes:jpg,jpeg,png,gif',
         ];

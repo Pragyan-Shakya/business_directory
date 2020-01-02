@@ -78,7 +78,7 @@
                         </div>
                         {{--////////////DataTable Start--}}
                         <div class="box-body">
-                            <table id="role_list" class="table table-bordered table-hover">
+                            <table id="role_list" class="table table-bordered table-hover text-center">
                                 <thead>
                                 <tr>
                                     <th style="width: 10%">S.N</th>

@@ -17,6 +17,7 @@ class PermissionSeeder extends Seeder
 //            'role-create',
 //            'role-edit',
 //            'role-delete',
+            'role-moderate',
 //            'company-list',
 //            'company-create',
 //            'company-edit',

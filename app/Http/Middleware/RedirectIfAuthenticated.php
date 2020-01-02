@@ -24,4 +24,3 @@ class RedirectIfAuthenticated
         return $next($request);
     }
 }
-base64:9yTtD/rtZFnXG5D8+nGiuKKssyNxNg+1piHuDPtfe4o=
