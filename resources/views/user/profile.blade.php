@@ -5,15 +5,7 @@
 @section('content')
     <div>
         <!-- Content Header (Page header) -->
-        <section class="content-header section-header">
-            <h2 class="title">
-                User Profile
-            </h2>
-            <ol class="breadcrumb">
-                <li><a href="{{ route('admin.dashboard.index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Update Profile</li>
-            </ol>
-        </section>
+
         <section class="content">
             <div class="box-content">
                 <div class="profile-editor clearfix">
@@ -21,7 +13,6 @@
                         <div class="profile-editor-preview">
                             <img src="{{ $user->get_avatar() }}" alt="{{ $user->full_name() }}" style="width:260px">
                         </div>
-                        <input type="file" class="hidden" id="input_file2">
                     </div>
                     <div class="profile-editor-main">
                         <form role="form" action="{{ route('user.profile.update', $user->id) }}" method="POST" enctype="multipart/form-data">
@@ -105,8 +96,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group form-xs-group">
-                                <button type="submit" class="btn btn-xs btn-danger btn-local-danger">Update Profile</button>
+                            <div class="form-group ">
+                                <button type="submit" class="btn  btn-danger btn-local-danger">Update Profile</button>
                             </div>
                         </form>
                     </div>

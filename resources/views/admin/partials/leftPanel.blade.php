@@ -34,7 +34,7 @@
                     </ul>
                 </li>
             @endcan
-            @can(['user-list', 'employer-list', 'user-create'])
+            @can(['user-list', 'user-create'])
                 <li class="{{ (\Request::is('admin/user*')||\Request::is('admin/employer*'))?'active':'' }} treeview">
                     <a href="#">
                         <i class="fa fa-users"></i>

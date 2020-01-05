@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset('public/assets/user/assets/libraries/ionicons-2.0.1/css/ionicons.min.css') }}" />
     <!-- Start BOOTSTRAP -->
     <link rel="stylesheet" href="{{ asset('public/assets/user/assets/libraries/bootstrap/dist/css/bootstrap.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('public/assets/user/assets/css/bootstrap-select.min.cs') }}s" />
+    <link rel="stylesheet" href="{{ asset('public/assets/user/assets/css/bootstrap-select.min.cs') }}" />
     <!-- End Bootstrap -->
     <!-- Start footable-jquery -->
     <link rel="stylesheet" href="{{ asset('public/assets/user/assets/libraries/footable-jquery/css/footable.bootstrap.min.css') }}" />

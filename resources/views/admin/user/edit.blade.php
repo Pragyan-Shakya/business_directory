@@ -28,7 +28,7 @@
                             <form action="{{ route('admin.user.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
-                                @include('admin.user.form');
+                                @include('admin.user.form')
                                 <div class="box-footer">
                                     <button type="submit" class="btn btn-primary">Update</button>
                                 </div>

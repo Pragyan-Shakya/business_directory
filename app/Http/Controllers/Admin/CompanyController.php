@@ -10,6 +10,7 @@ use App\Model\Employer;
 use App\Model\Industry;
 use App\Repositories\Repository;
 use App\User;
+use function foo\func;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -37,7 +38,12 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = $this->model->all();
+        if(auth()->user()->hasRole('Moderator')){
+            $companies = Company::where('moderator_id',auth()->user()->id)->get();
+        }
+        else{
+            $companies = $this->model->all();
+        }
         return view('admin.company.index', compact('companies'));
     }
 
@@ -49,7 +55,9 @@ class CompanyController extends Controller
     public function create()
     {
         $industries = Industry::where('status', 'Active')->get();
-        $users = User::whereDoesntHave('company')->get();
+        $users = User::whereDoesntHave('company')->whereHas('roles', function ($q){
+            $q->where('name', 'User');
+        })->get();
         $employers = Employer::all();
         return view('admin.company.create', compact('industries', 'employers', 'users'));
     }
@@ -84,7 +92,9 @@ class CompanyController extends Controller
         //
         $company = $this->model->show($id);
         $industries = Industry::where('status', 'Active')->get();
-        $users = User::whereDoesntHave('employer')->get();
+        $users = User::whereDoesntHave('company')->whereHas('roles', function ($q){
+            $q->where('name', 'User');
+        })->get();
         $employers = Employer::all();
         return view('admin.company.edit', compact('company', 'industries', 'employers', 'users'));
     }

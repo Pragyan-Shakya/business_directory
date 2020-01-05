@@ -27,7 +27,7 @@
                         <div class="box-body">
                             <form action="{{ route('admin.user.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                @include('admin.user.form');
+                                @include('admin.user.form')
                                 <div class="box-footer">
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>

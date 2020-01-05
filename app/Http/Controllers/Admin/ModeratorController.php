@@ -10,6 +10,12 @@ use Illuminate\Http\Request;
 
 class ModeratorController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission:role-moderate');
+    }
+
     /**
      * Display a listing of the resource.
      *
