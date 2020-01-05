@@ -68,8 +68,13 @@ Route::group([
     Route::resource('/profile', 'ProfileController');
     ////////// Company
     Route::resource('/company', 'CompanyController');
-    ////////// Company
+    ////////// Gallery
     Route::resource('/gallery', 'GalleryController');
+    ////////// Services
+    Route::resource('/service', 'ServiceController');
+    ////////// Events
+    Route::resource('/event', 'EventController');
+
 });
 
 

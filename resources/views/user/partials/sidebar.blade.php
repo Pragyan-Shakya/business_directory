@@ -14,14 +14,16 @@
             @if($user->hasCompany())
                 <li ><a class="label">COMPANY</a></li>
                 <li class="{{ Request::is('dashboard/company*')?'active':'' }}"> <a href="{{ route('user.company.edit', Auth()->user()->id) }}"><i class="nav-icon ion-android-clipboard"></i><span class="nav-label">Company Profile</span></a> </li>
-                <li class="{{ Request::is('dashboard/gallery*')?'active':'' }}"> <a href="{{ route('user.gallery.index') }}"><i class="nav-icon ion-plus"></i><span class="nav-label">Gallery</span></a> </li>
-                <li> <a href="admin_5.php"><i class="nav-icon ion-android-star"></i><span class="nav-label">Reviews</span></a> </li>
-                <li class="has_submenu"> <a href="#"><i class="nav-icon ion-flag"></i><span class="nav-label">Support</span></a>
-                    <ul>
-                        <li> <a href="#"><i class="nav-icon ion-person"></i><span class="nav-label">Sub Example 1</span></a> </li>
-                        <li> <a href="#"><i class="nav-icon ion-person"></i><span class="nav-label">Sub Example 2</span></a> </li>
-                    </ul>
-                </li>
+                <li class="{{ Request::is('dashboard/gallery*')?'active':'' }}"> <a href="{{ route('user.gallery.index') }}"><i class="nav-icon ion-images"></i><span class="nav-label">Gallery</span></a> </li>
+                <li class="{{ Request::is('dashboard/service*')?'active':'' }}"> <a href="{{ route('user.service.index') }}"><i class="nav-icon ion-android-train"></i><span class="nav-label">Services</span></a> </li>
+                <li class="{{ Request::is('dashboard/event*')?'active':'' }}"> <a href="{{ route('user.event.index') }}"><i class="nav-icon ion-calendar"></i><span class="nav-label">Events</span></a> </li>
+                {{--<li> <a href="admin_5.php"><i class="nav-icon ion-android-star"></i><span class="nav-label">Reviews</span></a> </li>--}}
+                {{--<li class="has_submenu"> <a href="#"><i class="nav-icon ion-flag"></i><span class="nav-label">Support</span></a>--}}
+                    {{--<ul>--}}
+                        {{--<li> <a href="#"><i class="nav-icon ion-person"></i><span class="nav-label">Sub Example 1</span></a> </li>--}}
+                        {{--<li> <a href="#"><i class="nav-icon ion-person"></i><span class="nav-label">Sub Example 2</span></a> </li>--}}
+                    {{--</ul>--}}
+                {{--</li>--}}
             @endif
             <li> <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="nav-icon ion-android-exit"></i><span class="nav-label">Log Out</span></a> </li>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

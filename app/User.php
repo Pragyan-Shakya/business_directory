@@ -69,20 +69,13 @@ class User extends Authenticatable implements MustVerifyEmail
         }
     }
 
-    public function isEmployer(){
-        $user = Employer::where('user_id', $this->id)->get();
-        return count($user)>0?true:false;
-    }
-
     public function company(){
         return $this->hasOne('App\Model\Company', 'user_id');
     }
 
     public function hasCompany(){
-        if($this->isEmployer()){
-            $company = Company::where('user_id', $this->id)->get();
-            return count($company)>0?true:false;
-        }
+        $company = Company::where('user_id', $this->id)->get();
+        return count($company)>0?true:false;
     }
     public function moderator(){
         return $this->belongsTo('App\User', 'moderator_id');

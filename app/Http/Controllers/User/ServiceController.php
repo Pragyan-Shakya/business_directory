@@ -3,21 +3,18 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Traits\ProfileTrait;
+use App\Model\Company;
+use App\Model\Service;
 use App\Repositories\Repository;
-use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class ProfileController extends Controller
+class ServiceController extends Controller
 {
-    use ProfileTrait;
-
     protected $model;
 
-    public function __construct(User $user)
+    public function __construct(Service $service)
     {
-        $this->model = new Repository($user);
+        $this->model = new Repository($service);
     }
 
     /**
@@ -27,10 +24,9 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        return view('user.profile', compact(
-            'user'
-        ));
+        //
+        $services = $this->model->all();
+        return view('user.service.index', compact('services'));
     }
 
     /**
@@ -51,7 +47,14 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+//        dd($request->all());
+        $data = $request->except('_token');
+        $company = Company::where('user_id', auth()->user()->id)->first();
+        $data['company_id'] = $company->id;
+        $service = Service::insert($data);
+        if($service){
+            return redirect()->route('user.service.index')->with('success', 'Service Added!!!');
+        }
     }
 
     /**
@@ -73,7 +76,8 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
-        //
+        $service = $this->model->show($id);
+        return view('user.service.edit', compact('service'));
     }
 
     /**
@@ -83,6 +87,15 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function update(Request $request, $id)
+    {
+        $data = $request->except(['_token', 'method']);
+        $service = $this->model->show($id);
+        $service = $service->update($data);
+        if($service){
+            return redirect()->route('user.service.index')->with('success', 'Service Updated!!!');
+        }
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -92,6 +105,7 @@ class ProfileController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->model->delete($id);
+        return redirect()->back()->with('success', 'Service Deleted!!!');
     }
 }

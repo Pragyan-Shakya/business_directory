@@ -28,7 +28,12 @@ class UserController extends Controller
     public function index()
     {
         DB::enableQueryLog();
-        $users = User::all();
+        if(auth()->user()->hasRole('Moderator')){
+            $users = User::where('moderator_id',auth()->user()->id)->get();
+        }
+        else {
+            $users = User::all();
+        }
         return view('admin.user.index', compact('users'));
     }
 
@@ -78,6 +83,9 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->profession = $request->profession;
         $user->education = trim($request->education);
+        if(auth()->user()->hasRole('Moderator')){
+            $user->moderator_id = auth()->user()->id;
+        }
         $user->save();
         $user->assignRole($request->input('roles'));
         return back()->with('success', 'User Added Successfully');

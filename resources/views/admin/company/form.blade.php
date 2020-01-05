@@ -143,6 +143,9 @@
             <h4><u>Employeer</u></h4>
             <select name="employers_id" class="form-control" id="user_id">
                 <option value="">Select Employer</option>
+                @if($company->user)
+                    <option value="{{$company->user->id}}" selected>{{ $company->user->full_name() }}</option>
+                @endif
                 @foreach($users as $employer)
                     <option value="{{ $employer->id }}"
                             {{isset($company->employers_id)?($company->employers_id == $employer->id?'selected':''):''}}>

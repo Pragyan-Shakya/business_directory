@@ -787,25 +787,25 @@ margin-right: 45px;
 [5. Forms ]
 */
 
-.form-control {
-    height: 51px;
-    padding: 6px 30px;
-    border: 1px solid rgb(210, 212, 215);
-    border-radius: 3px;
-}
+/*.form-control {*/
+    /*height: 51px;*/
+    /*padding: 6px 30px;*/
+    /*border: 1px solid rgb(210, 212, 215);*/
+    /*border-radius: 3px;*/
+/*}*/
 
-.form-xs-group .form-control {
-    padding: 6px 25px;
-}
+/*.form-xs-group .form-control {*/
+    /*padding: 6px 25px;*/
+/*}*/
 
-.form-group-in label,
-.form-group label {
-    color: #656565;
-    font-size: 16px;
-    font-weight: 600;
-    padding-top: 4px;
-    margin-bottom: 13px;
-}
+/*.form-group-in label,*/
+/*.form-group label {*/
+    /*color: #656565;*/
+    /*font-size: 16px;*/
+    /*font-weight: 600;*/
+    /*padding-top: 4px;*/
+    /*margin-bottom: 13px;*/
+/*}*/
 
 .form-group label .option {
     color: #aaa;
@@ -830,11 +830,11 @@ margin-right: 45px;
     margin-bottom: 26px;
 }
 
-.form-group .btn {
-    padding: 14px 16px;
-    font-weight: 600;
-    font-size: 16px;
-}
+/*.form-group .btn {*/
+    /*padding: 14px 16px;*/
+    /*font-weight: 600;*/
+    /*font-size: 16px;*/
+/*}*/
 
 .form-group .btn.btn-xs {
     padding: 13px 29px;
