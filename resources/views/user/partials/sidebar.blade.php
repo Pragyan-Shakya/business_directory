@@ -12,11 +12,14 @@
             <li><a class="label">USER</a></li>
             <li class="{{ Request::is('dashboard/profile*')?'active':'' }}"> <a href="{{ route('user.profile.index') }}"><i class="nav-icon ion-person"></i><span class="nav-label">Profile</span></a> </li>
             @if($user->hasCompany())
-                <li ><a class="label">COMPANY</a></li>
+                <li class=""><a class="label">COMPANY</a></li>
                 <li class="{{ Request::is('dashboard/company*')?'active':'' }}"> <a href="{{ route('user.company.edit', Auth()->user()->id) }}"><i class="nav-icon ion-android-clipboard"></i><span class="nav-label">Company Profile</span></a> </li>
                 <li class="{{ Request::is('dashboard/gallery*')?'active':'' }}"> <a href="{{ route('user.gallery.index') }}"><i class="nav-icon ion-images"></i><span class="nav-label">Gallery</span></a> </li>
                 <li class="{{ Request::is('dashboard/service*')?'active':'' }}"> <a href="{{ route('user.service.index') }}"><i class="nav-icon ion-android-train"></i><span class="nav-label">Services</span></a> </li>
                 <li class="{{ Request::is('dashboard/event*')?'active':'' }}"> <a href="{{ route('user.event.index') }}"><i class="nav-icon ion-calendar"></i><span class="nav-label">Events</span></a> </li>
+                <li class="{{ Request::is('dashboard/job*')?'active':'' }}"> <a href="{{ route('user.job.index') }}"><i class="nav-icon ion-briefcase"></i><span class="nav-label">Jobs</span></a></li>
+                <li class="{{ Request::is('dashboard/notice*')?'active':'' }}"> <a href="{{ route('user.notice.index') }}"><i class="nav-icon ion-briefcase"></i><span class="nav-label">Notices</span></a></li>
+                <li class="{{ Request::is('dashboard/contact*')?'active':'' }}"> <a href="{{ route('user.contact.index') }}"><i class="nav-icon ion-chatbubbles"></i><span class="nav-label">Contact</span></a></li>
                 {{--<li> <a href="admin_5.php"><i class="nav-icon ion-android-star"></i><span class="nav-label">Reviews</span></a> </li>--}}
                 {{--<li class="has_submenu"> <a href="#"><i class="nav-icon ion-flag"></i><span class="nav-label">Support</span></a>--}}
                     {{--<ul>--}}
@@ -31,7 +34,7 @@
             </form>
         </ul>
     </div>
-    <div class="copyright" style="text-align: center;">
+    <div class="copyright" style="text-align: center; position: relative;">
         NoticeBank&#169;{{ date('Y') }}.
         <br> Developed By <a href="//nextaussietech.com" target="_blank">Next Aussie Tech Pvt. Ltd</a>
     </div>

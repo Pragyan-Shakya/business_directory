@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\Model\Review;
 use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
@@ -10,6 +11,9 @@ class Company extends Model
         'title',
         'email',
         'address',
+        'province_id',
+        'district_id',
+        'municipal_id',
         'phone',
         'mobile',
         'fax',
@@ -26,8 +30,12 @@ class Company extends Model
         'user_id',
         'slug',
         'seo',
+        'map',
     ];
 
+    public function industry(){
+        return $this->belongsTo('App\Model\Industry', 'industry_id');
+    }
     public function user(){
         return $this->belongsTo('App\User', 'user_id');
     }
@@ -55,5 +63,27 @@ class Company extends Model
 
     public function galleries(){
         return $this->hasMany('App\Model\Gallery', 'company_id');
+    }
+    public function events(){
+        return $this->hasMany('App\Model\Event', 'company_id')->orderBy('event_date', 'ASC');
+    }
+    public function services(){
+        return $this->hasMany('App\Model\Service', 'company_id')->orderBy('order');
+    }
+    public function jobs(){
+        return $this->hasMany('App\Model\Job', 'company_id');
+    }
+    public function notices(){
+        return $this->hasMany('App\Model\Notice', 'company_id');
+    }
+    public function reviews(){
+        return $this->hasMany('App\Model\Review', 'company_id');
+    }
+    public function avgReview(){
+        if($this->reviews()){
+            return floor(Review::where('company_id', $this->id)->where('status', 'Active')->avg('rating'));
+        }else{
+            return 0;
+        }
     }
 }

@@ -35,8 +35,6 @@
                                 </div>
                             </form>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -50,10 +48,64 @@
             $('#industry_id').select2();
             $('#ownership').select2();
             $('#employers_id').select2();
+            // $('#province_id').select2();
+            // $('#district_id').select2();
+            // $('#municipal_id').select2();
             $('#datepicker').datepicker({
                 autoclose: true,
                 format: 'yyyy-mm-dd',
             })
-        })
+        });
+        $('#province_id').on('change', function (e) {
+            e.preventDefault();
+            $('#district_id').html('');
+            $('#municipal_id').html('');
+            var provinceId = $(this).val();
+            var districts = getDistrict(provinceId);
+        });
+        $('#district_id').on('change', function (e) {
+            e.preventDefault();
+            $('#municipal_id').html('');
+            var districtId = $(this).val();
+            var municiaps = getMunicipal(districtId);
+        });
+        function getDistrict(provinceId){
+            $.ajax({
+                type: 'get',
+                url: '{{ route('getDistrict') }}',
+                data: {
+                    'province_id' : provinceId,
+                },
+                success: function(data){
+                    var districtOptions = '<option value="">Select District</option>';
+                    data.data.forEach(function (item, index) {
+                        districtOptions += '<option value="'+item.id+'">'+item.district_name+'</option>';
+                    });
+                    $('#district_id').html(districtOptions);
+                },
+                error: function (error) {
+                    console.error(error)
+                }
+            })
+        }
+        function getMunicipal(districtId){
+            $.ajax({
+                type: 'get',
+                url: '{{ route('getMunicipal') }}',
+                data: {
+                    'district_id' : districtId,
+                },
+                success: function(data){
+                    var municipalOptions = '<option value="">Select Municpals</option>';
+                    data.data.forEach(function (item, index) {
+                        municipalOptions += '<option value="'+item.id+'">'+item.municipal_name+'</option>';
+                    });
+                    $('#municipal_id').html(municipalOptions);
+                },
+                error: function (error) {
+                    console.error(error)
+                }
+            })
+        }
     </script>
 @endsection

@@ -40,11 +40,16 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
+
         if($user->hasRole('User')) {
             return redirect()->route('user.index');
         }
         if($user->hasRole('Super Admin')){
             return redirect($this->redirectTo);
         }
+    }
+    protected function authenticatedAjax(Request $request, $user)
+    {
+
     }
 }

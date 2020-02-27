@@ -11,13 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/test', function () {
+    return config('mail.from.address');
 });
+
+Route::get('/cache-clear', function (){
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('config:cache');
+    return 'DONE';
+});
+
+
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
 //////////////Admin Dashboard Routes
 Route::group([
     'prefix'        => 'admin',
@@ -44,7 +52,7 @@ Route::group([
     Route::resource('/setting', 'SettingController');
     //////////////////// Testimonial
     Route::resource('/testimonial', 'TestimonialController');
-    //////////////////// Testimonial
+    //////////////////// Blog
     Route::resource('/blog', 'BlogController');
     //////////////////// Moderator
     Route::get('/moderator/getCompanies/{id}', 'ModeratorController@getCompanies')->name('moderator.getCompanies');
@@ -71,11 +79,42 @@ Route::group([
     ////////// Gallery
     Route::resource('/gallery', 'GalleryController');
     ////////// Services
+    Route::post('/sortOrder', 'ServiceController@sortOrder')->name('service.sortOrder');
     Route::resource('/service', 'ServiceController');
     ////////// Events
     Route::resource('/event', 'EventController');
+    ////////// Events
+    Route::resource('/job', 'JobController');
+    ////////// Notice
+    Route::resource('/notice', 'NoticeController');
+    ////////// Contact
+    Route::resource('/contact', 'ContactController');
+    ///////Review
+    Route::resource('/review', 'ReviewController');
 
 });
+
+Route::group([
+    'as' => 'front.',
+    'namespace' => 'Front',
+], function (){
+    ///////Home Page
+    Route::get('/', 'HomeController@index')->name('home');
+    ///////Blog
+    Route::resource('/blog', 'BlogController');
+    ///////Company
+    Route::post('/listing/contact/{id}', 'CompanyController@addContactMessage')->name('listing.addContactMessage');
+    Route::post('/listing/save/{id}', 'CompanyController@saveListing')->name('listing.saveListing');
+    Route::post('/{slug}/listing', 'CompanyController@industryListing')->name('listing.industryListing');
+    Route::resource('/listing', 'CompanyController');
+    ///////Review
+    Route::resource('/review', 'ReviewController');
+    ///////Search
+    Route::get('/listing-search', 'SearchController@listing_search')->name('listing_search');
+});
+
+Route::get('/getDistrict', 'LocationController@getDistrict')->name('getDistrict');
+Route::get('/getMunicipal', 'LocationController@getMunicipal')->name('getMunicipal');
 
 
 

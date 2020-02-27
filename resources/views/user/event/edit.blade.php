@@ -14,7 +14,7 @@
                         @include('user.event.form')
                         <div class="form-group">
                             <input type="submit" class="btn btn-primary" value="Update">
-                            <button type="button" class="btn btn-warning">Back</button>
+                            <a href="{{ route('user.event.index') }}" type="button" class="btn btn-warning">Back</a>
                         </div>
                     </form>
                 </div>

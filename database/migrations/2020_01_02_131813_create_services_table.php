@@ -17,7 +17,7 @@ class CreateServicesTable extends Migration
             $table->bigIncrements('id');
             $table->integer('company_id');
             $table->string('title');
-            $table->string('icon')->default('thumbs-up');
+            $table->string('icon')->default('fa-thumbs-up');
             $table->text('description');
             $table->enum('status', array('Active', 'Inactive'))->default('Active');
             $table->integer('order')->nullable();

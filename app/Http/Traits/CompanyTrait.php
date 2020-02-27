@@ -22,7 +22,7 @@
             if($files = $request->file('cover_image')) {
                 $ImageUpload = Image::make($files);
                 $originalPath = 'public/assets/uploads/cover_images/'.time().$files->getClientOriginalName();
-                $ImageUpload->save($originalPath);
+                $ImageUpload->resize('1140', '320')->save($originalPath);
                 $data['cover_image'] = $originalPath;
             }
             $data['slug'] = Str::slug($request->title);

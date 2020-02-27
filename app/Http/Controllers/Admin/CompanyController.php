@@ -8,6 +8,7 @@ use App\Http\Traits\CompanyTrait;
 use App\Model\Company;
 use App\Model\Employer;
 use App\Model\Industry;
+use App\Model\Province;
 use App\Repositories\Repository;
 use App\User;
 use function foo\func;
@@ -55,11 +56,12 @@ class CompanyController extends Controller
     public function create()
     {
         $industries = Industry::where('status', 'Active')->get();
+        $provinces = Province::all();
         $users = User::whereDoesntHave('company')->whereHas('roles', function ($q){
             $q->where('name', 'User');
         })->get();
         $employers = Employer::all();
-        return view('admin.company.create', compact('industries', 'employers', 'users'));
+        return view('admin.company.create', compact('industries', 'employers', 'users', 'provinces'));
     }
 
     /**
@@ -91,12 +93,14 @@ class CompanyController extends Controller
     {
         //
         $company = $this->model->show($id);
+        $provinces = Province::all();
+
         $industries = Industry::where('status', 'Active')->get();
         $users = User::whereDoesntHave('company')->whereHas('roles', function ($q){
             $q->where('name', 'User');
         })->get();
         $employers = Employer::all();
-        return view('admin.company.edit', compact('company', 'industries', 'employers', 'users'));
+        return view('admin.company.edit', compact('company', 'industries', 'employers', 'users', 'provinces'));
     }
 
     /**
