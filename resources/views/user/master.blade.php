@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset('public/assets/user/assets/libraries/ionicons-2.0.1/css/ionicons.min.css') }}" />
     <!-- Start BOOTSTRAP -->
     <link rel="stylesheet" href="{{ asset('public/assets/user/assets/libraries/bootstrap/dist/css/bootstrap.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('public/assets/user/assets/css/bootstrap-select.min.cs') }}" />
+    <link rel="stylesheet" href="{{ asset('public/assets/user/assets/css/bootstrap-select.min.css') }}" />
     <!-- End Bootstrap -->
     <!-- Start footable-jquery -->
     <link rel="stylesheet" href="{{ asset('public/assets/user/assets/libraries/footable-jquery/css/footable.bootstrap.min.css') }}" />
@@ -28,6 +28,7 @@
     <link href="{{ asset('public/assets/admin/bower_components/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
     <link href="{{ asset('public/assets/admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
     <link href="{{ asset('public/assets/admin/bower_components/select2/dist/css/select2.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <!-- DataTables -->
     <!-- Theme style -->
@@ -73,6 +74,7 @@
 
 <!-- Start Jquery -->
 <script src="{{ asset('public/assets/user/assets/js/jquery-2.2.1.min.js') }}"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="{{ asset('public/assets/user/assets/libraries/jquery.mobile/jquery.mobile.custom.min.js') }}"></script>
 <!-- End Jquery -->
 <!-- Start BOOTSTRAP -->

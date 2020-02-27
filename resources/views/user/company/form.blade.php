@@ -138,6 +138,15 @@
             <img src="{{ $company->get_cover_image() }}" alt="{{ $company->title }}" style="width: 100%;">
         @endif
     </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="company_cover">Embed Google Map</label>
+            <input type="text" class="form-control" value="{{ isset($company->map)?$company->map:old('map') }}" name="map" placeholder='<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56516.276891975016!2d85.29111309519689!3d27.709031933725658!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb198a307baabf%3A0xb5137c1bf18db1ea!2sKathmandu%2044600!5e0!3m2!1sen!2snp!4v1579239653448!5m2!1sen!2snp" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>'>
+        </div>
+        @if(isset($company) && isset($company->map))
+            {!! $company->map !!}
+        @endif
+    </div>
     <input type="hidden" value="{{ $company->employers_id }}" name="employers_id">
 
 

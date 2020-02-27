@@ -30,7 +30,7 @@
                                 <td>{{ date('d-M-Y', strtotime($event->event_date)) }}</td>
                                 <td>{!! $event->description !!}</td>
                                 <td>
-                                    <div class="btn-group">
+                                    <div style="display: inline-flex;">
                                         <a href="{{ route('user.event.edit', $event->id) }}" class="btn btn-primary" title="Edit"><i class="fa fa-pencil"></i></a>
                                         <form action="{{ route('user.event.destroy', $event->id) }}" method="post">
                                             @csrf

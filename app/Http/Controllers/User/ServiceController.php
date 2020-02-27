@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ServiceRequest;
 use App\Model\Company;
 use App\Model\Service;
 use App\Repositories\Repository;
@@ -24,8 +25,8 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
-        $services = $this->model->all();
+        $company = Company::where('user_id', auth()->user()->id)->first();
+        $services = $company->services;
         return view('user.service.index', compact('services'));
     }
 
@@ -45,7 +46,7 @@ class ServiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ServiceRequest $request)
     {
 //        dd($request->all());
         $data = $request->except('_token');
@@ -87,7 +88,7 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ServiceRequest $request, $id)
     {
         $data = $request->except(['_token', 'method']);
         $service = $this->model->show($id);
@@ -107,5 +108,24 @@ class ServiceController extends Controller
     {
         $this->model->delete($id);
         return redirect()->back()->with('success', 'Service Deleted!!!');
+    }
+
+    public function sortOrder(Request $request)
+    {
+        $company = Company::where('user_id', auth()->user()->id)->first();
+        $services = Service::where('company_id', $company->id)->get();
+
+        foreach ($services as $task) {
+            $task->timestamps = false; // To disable update_at field updation
+            $id = $task->id;
+
+            foreach ($request->order as $order) {
+                if ($order['id'] == $id) {
+                    $task->update(['order' => $order['position']]);
+                }
+            }
+        }
+
+        return response('Update Successfully.', 200);
     }
 }

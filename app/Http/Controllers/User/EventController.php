@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EventRequest;
 use App\Model\Company;
 use App\Model\Event;
 use App\Repositories\Repository;
@@ -25,7 +26,8 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = $this->model->all();
+        $company = Company::where('user_id', auth()->user()->id)->first();
+        $events = $company->events;
         return view('user.event.index', compact('events'));
     }
 
@@ -45,7 +47,7 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EventRequest $request)
     {
         $data = $request->except('_token');
         $company = Company::where('user_id', auth()->user()->id)->first();
@@ -98,7 +100,7 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EventRequest $request, $id)
     {
         $data = $request->except(['_token', '_method']);
         $event = $this->model->show($id);
