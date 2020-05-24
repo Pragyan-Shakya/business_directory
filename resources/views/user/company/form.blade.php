@@ -22,6 +22,33 @@
     </div>
     <div class="col-md-4">
         <div class="form-group">
+            <label for="province_id">Province</label>
+            <select name="province_id" id="province_id" class="form-control" required>
+                <option value="">Select Province</option>
+                @foreach($provinces as $province)
+                    <option value="{{ $province->id }}" {{ isset($company)?$company->province_id == $province->id?'selected':'':'' }}>{{ $province->province_name }}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="district_id">District</label>
+            <select name="district_id" id="district_id" class="form-control" required>
+
+            </select>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="municipal_id">Municipal</label>
+            <select name="municipal_id" id="municipal_id" class="form-control" required>
+
+            </select>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
             <label for="company_phone">Phone no.</label>
             <input type="number" name="phone" class="form-control"
                    value="{{ isset($company->phone)?$company->phone:old('phone') }}">

@@ -3,7 +3,7 @@
         <div class="widget widget-recentproperties" id="notices">
             <div class="row result-container row-flex">
                 @php
-                    $notices = $listing->notices()->where('status', 'Active')->paginate(1);
+                    $notices = $listing->notices()->where('status', 'Active')->paginate(5);
                 @endphp
                 @foreach($notices as $notice)
                     <div class="col-xs-12">

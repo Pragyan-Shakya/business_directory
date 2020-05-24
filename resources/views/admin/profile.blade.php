@@ -53,7 +53,7 @@
 
                             <hr>
 
-                            <strong><i class="fa fa-phone margin-r-5"></i> Skills</strong>
+                            <strong><i class="fa fa-phone margin-r-5"></i> Contact no.</strong>
 
                             <p class="text-muted">{{ $user->phone }}</p>
 

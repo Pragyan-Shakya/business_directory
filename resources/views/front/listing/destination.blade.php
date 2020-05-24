@@ -1,6 +1,6 @@
 @extends('front.listing.master')
 @section('content')
-    <div class="section-search-area section container container-palette mask-grey" data-parallax="scroll" style="background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url('{{ asset(getConfiguration('front_banner')) }}') !important;" data-image-src="assets/img/architecture-buildings-church-338515.jpg">
+    <div class="section-search-area section container container-palette mask-grey" data-parallax="scroll" data-image-src="assets/img/architecture-buildings-church-338515.jpg">
         <!--<div id="map" class="map-bg"> </div>-->
         <div class="container">
             <div class="body">
@@ -17,9 +17,9 @@
                             <div class="col-md-3">
                                 <select name="industry" class="form-control">
                                     <option value="" >Select Industry</option>
-                                    @foreach($industries as $result)
-                                        <option value="{{ $result->slug }}" >
-                                            {{ $result->title }}
+                                    @foreach($industries as $industry)
+                                        <option value="{{ $industry->slug }}" >
+                                            {{ $industry->title }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -78,67 +78,29 @@
         <section class="listing-category">
             <div class="container">
                 <div class="section-title mt-3">
-                    <h2>Popular Destinations</h2>
+                    <h2 class="title">All Destinations</h2>
                     {{--<span class="subtitle">Maecenas mauris arcu, congue ac lorem vel libero.</span>--}}
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="owl-carousel owl-theme">
-                            @foreach($top_destinations->chunk(2) as $top_destination)
-                                @php
-                                    $i=0;
-                                @endphp
-                                <div class="item">
-                                    @foreach($top_destination as $key => $destination)
-                                        @if($destination->image)
-                                            <img src="{{ $destination->get_image() }}" alt="{{ $destination->district_name }}" class="{{ $i==1?'mt5':'' }}">
-                                        @else
-                                            <img src="{{ asset('public/assets/uploads/default_designation.jpg') }}" alt="{{ $destination->district_name }}" class="{{ $i==1?'mt5':''}}">
-                                        @endif
-                                        @php
-                                            $i++;
-                                        @endphp
-                                    @endforeach
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-                <div class="section-title mt-3">
-                    <h2 class="title">{{ $industry->title }}</h2>
-                    {{--<span class="subtitle">Maecenas mauris arcu, congue ac lorem vel libero.</span>--}}
-                </div>
-                <div class="row">
-                    <div class="col-md-8 swap-bottom left-side">
-                        <div class="well well-sm">
-                            <div class="btn-group">
-                                <a href="#" id="list" class="btn btn-default btn-sm pull-right"><span class="glyphicon glyphicon-th-list">
-                     </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm pull-right"><span
-                                        class="glyphicon glyphicon-th"></span>Grid</a>
-                            </div>
-                        </div>
+                    <div class="col-md-12 swap-bottom left-side">
                         <div id="products" class="row list-group">
-                            @foreach($listings as $key => $listing)
-                                <div class="item  col-xs-4 col-lg-4">
-                                    <div class="thumbnail thumbnail-property nohover">
-                                        <img class="group list-group-image thumbnail-image img-responsive" src="{{ $listing->get_logo() }}" alt="{{ $listing->name }}" />
-                                        <div class="caption">
-                                            <!--  <h2 class="group inner list-group-item-heading thumbnail-title">
-                                               <a href="listing.php">Contraband Coffee Bar</a></h2> -->
-                                            <div class="header">
-                                                <div class="left">
-                                                    <h2 class="thumbnail-title"><a href="{{ route('front.listing.show', $listing->slug) }}">{{ $listing->title }}</a></h2>
-                                                    <div class="options"> <span class="thumbnail-ratings"> {{ $listing->avgReview() }} <i class="icon-star-ratings-{{ $listing->avgReview() }}"></i> </span>
-                                                        <span class="type"> <a href="{{ route('front.industry.show', $listing->industry->slug) }}">{{ $listing->industry->title }}</a> </span>
-                                                    </div>
-                                                </div>
-                                                <div class="right">
-                                                    <div class="address">{{ $listing->address }}</div>
-                                                </div>
-                                            </div>
-                                            <div class="group inner list-group-item-text">
-                                                {!! \Illuminate\Support\Str::limit($listing->description, 500)  !!}
-                                            </div>
+                            @foreach($destinations as $key => $destination)
+                                <div class="col-md-3 mt-1">
+                                    <div class="inner-image">
+                                        <div class="imageininner">
+                                            @if($destination->image)
+                                                <a href="{{ route('front.destination.show', $destination->id) }}"> <img src="{{ $destination->get_image() }}" alt="{{ $destination->district_name }}"></a>
+                                            @else
+                                                <a href="{{ route('front.destination.show', $destination->id) }}"> <img src="{{ asset('public/assets/uploads/default_designation.jpg') }}" alt="{{ $destination->district_name }}"></a>
+                                            @endif
+                                        </div>
+                                        <div class="imageintext">
+                                            <a href="{{ route('front.destination.show', $destination->id) }}">
+                                                <h3 class="text-center">{{ $destination->district_name }}</h3>
+                                            </a>
+                                            <a href="{{ route('front.destination.show', $destination->id) }}">
+                                                <p class="text-center">{{ $destination->companies()->count() }} Listings</p>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -146,39 +108,9 @@
 
                             <div class="col-md-12">
                                 <div style="margin: auto">
-                                    {{ $listings->links() }}
+                                    {{ $destinations->links() }}
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="widget-styles widget-other-location">
-                            <h2 class="widget-title content-box t-left">Popular Posts</h2>
-                            <div class="content-box">
-                                <div class="location-box">
-                                    <a href="listing.php" class="preview-image image-cover-div"><img src="assets/img/pic/business/outdoor-restaurant.jpg" alt="" /></a>
-                                    <div class="location-box-content">
-                                        <h3 class="title"><a href="listing.php">Best Coffee Bars</a></h3>
-                                        <div class="types date"> April 11, 2017 </div>
-                                    </div>
-                                </div>
-                                <div class="location-box">
-                                    <a href="listing.php" class="preview-image image-cover-div"><img src="assets/img/pic/places/contraband-coffe.jpg" alt="" /></a>
-                                    <div class="location-box-content">
-                                        <h3 class="title"><a href="listing.php">Party Hard on Weekends</a></h3>
-                                        <div class="types date"> April 10, 2017 </div>
-                                    </div>
-                                </div>
-                                <div class="location-box">
-                                    <a href="listing.php" class="preview-image image-cover-div"><img src="assets/img/pic/places/meal.jpg" alt="" /></a>
-                                    <div class="location-box-content">
-                                        <h3 class="title"><a href="listing.php">Perfect Sushi Place</a></h3>
-                                        <div class="types date"> April 05, 2017 </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="widget widget-ads"> <a href="#"><img src="assets/img/placeholder/ads.jpg" alt="" /></a>
                         </div>
                     </div>
                     <div class="col-md-12 ">

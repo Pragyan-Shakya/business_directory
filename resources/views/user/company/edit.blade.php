@@ -30,6 +30,106 @@
                 autoclose: true,
                 format: 'yyyy-mm-dd',
             })
-        })
+        });
+        $(function () {
+            var province_id = '{{ $company->province_id }}';
+            var district_id = '{{ $company->district_id }}';
+            var municipal_id = '{{ $company->municipal_id }}';
+            $.ajax({
+                type: 'get',
+                url: '{{ route('getDistrict') }}',
+                data: {
+                    'province_id' : province_id,
+                },
+                success: function(data){
+                    var districtOptions = '<option value="">Select District</option>';
+                    data.data.forEach(function (item, index) {
+                        if(item.id == district_id){
+                            districtOptions += '<option value="'+item.id+'" selected>'+item.district_name+'</option>';
+                        }else{
+                            districtOptions += '<option value="'+item.id+'">'+item.district_name+'</option>';
+                        }
+                    });
+                    $('#district_id').html(districtOptions);
+                    $.ajax({
+                        type: 'get',
+                        url: '{{ route('getMunicipal') }}',
+                        data: {
+                            'district_id' : district_id,
+                        },
+                        success: function(data){
+                            var municipalOptions = '<option value="">Select Municpals</option>';
+                            data.data.forEach(function (item, index) {
+                                if(item.id == municipal_id){
+                                    municipalOptions += '<option value="'+item.id+'" selected>'+item.municipal_name+'</option>';
+                                }else{
+                                    municipalOptions += '<option value="'+item.id+'">'+item.municipal_name+'</option>';
+                                }
+                            });
+                            $('#municipal_id').html(municipalOptions);
+                        },
+                        error: function (error) {
+                            console.error(error)
+                        }
+                    })
+                },
+                error: function (error) {
+                    console.error(error)
+                }
+            })
+
+        });
+
+        $('#province_id').on('change', function (e) {
+            e.preventDefault();
+            $('#district_id').html('');
+            $('#municipal_id').html('');
+            var provinceId = $(this).val();
+            var districts = getDistrict(provinceId);
+        });
+        $('#district_id').on('change', function (e) {
+            e.preventDefault();
+            $('#municipal_id').html('');
+            var districtId = $(this).val();
+            var municiaps = getMunicipal(districtId);
+        });
+        function getDistrict(provinceId){
+            $.ajax({
+                type: 'get',
+                url: '{{ route('getDistrict') }}',
+                data: {
+                    'province_id' : provinceId,
+                },
+                success: function(data){
+                    var districtOptions = '<option value="">Select District</option>';
+                    data.data.forEach(function (item, index) {
+                        districtOptions += '<option value="'+item.id+'">'+item.district_name+'</option>';
+                    });
+                    $('#district_id').html(districtOptions);
+                },
+                error: function (error) {
+                    console.error(error)
+                }
+            })
+        }
+        function getMunicipal(districtId){
+            $.ajax({
+                type: 'get',
+                url: '{{ route('getMunicipal') }}',
+                data: {
+                    'district_id' : districtId,
+                },
+                success: function(data){
+                    var municipalOptions = '<option value="">Select Municpals</option>';
+                    data.data.forEach(function (item, index) {
+                        municipalOptions += '<option value="'+item.id+'">'+item.municipal_name+'</option>';
+                    });
+                    $('#municipal_id').html(municipalOptions);
+                },
+                error: function (error) {
+                    console.error(error)
+                }
+            })
+        }
     </script>
 @endsection

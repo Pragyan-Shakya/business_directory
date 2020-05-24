@@ -23,7 +23,6 @@
                     <div class="row-s">
                         <div class="col-sm-12"><a href="{{ $listing->get_cover_image() }}" class="image-cover-div"><img
                                         src="{{ $listing->get_cover_image() }}" alt="{{ $listing->title }}"/></a></div>
-
                     </div>
                 </div>
             </div>

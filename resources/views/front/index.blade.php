@@ -1,6 +1,6 @@
 @extends('front.master')
 @section('content')
-    <div class="section-search-area section container container-palette mask-grey" data-parallax="scroll" data-image-src="{{ asset('public/assets/user/assets/img/architecture-buildings-church-338515.jpg') }}">
+    <div class="section-search-area section container container-palette mask-grey" data-parallax="scroll" style="background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url('{{ asset(getConfiguration('front_banner')) }}') !important;" data-image-src="">
         <!--<div id="map" class="map-bg"> </div>-->
         <div class="container">
             <div class="body">
@@ -202,7 +202,7 @@
                                 <div class="caption">
                                     <div class="caption-ls">
                                         <h3 class="thumbnail-title"><a href="{{ route('front.listing.show', $listing->slug) }}">{{ $listing->title }}</a></h3> <span class="thumbnail-ratings"> {{ $listing->avgReview() }} <i class="icon-star-ratings-{{ $listing->avgReview() }}"></i> </span>
-                                        <span class="type"> <a href="map-side-list.php">{{ $listing->industry->title }}</a> </span>
+                                        <span class="type"> <a href="{{ route('front.industry.show', $listing->industry->slug) }}">{{ $listing->industry->title }}</a> </span>
                                     </div>
                                     <div class="caption-rs"> <a href="listing.php" class="btn-marker"> <span class="box"><i class="fa fa-map-marker"></i></span> <span class="title">Location</span> </a> </div>
                                 </div>
@@ -219,128 +219,29 @@
                     <h2 class="title">Top Destinations</h2> <span class="subtitle">Maecenas mauris arcu, congue ac lorem vel libero.</span>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 mt-1">
-                        <div class="inner-image">
-                            <div class="imageininner">
-                                <a href="#"> <img src="{{ asset('public/assets/user/assets/img/baby-shower-birthday-buffet-587741.jpg') }}" alt=""></a>
-                            </div>
-                            <div class="imageintext">
-                                <a href="#">
-                                    <h3 class="text-center">Kathmandu</h3>
-                                </a>
-                                <a href="#">
-                                    <p class="text-center">185 Listings</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 mt-1">
-                        <div class="inner-image">
-                            <div class="imageininner">
-                                <a href="#"> <img src="{{ asset('public/assets/user/assets/img/america-ancient-architecture-356844.jpg') }}" alt=""></a>
-                            </div>
-                            <div class="imageintext">
-                                <a href="#">
-                                    <h3 class="text-center">Kathmandu</h3>
-                                </a>
-                                <a href="#">
-                                    <p class="text-center">185 Listings</p>
-                                </a>
+                    @foreach($top_destinations as $top_destination)
+                        <div class="col-md-3 mt-1">
+                            <div class="inner-image">
+                                <div class="imageininner">
+                                    @if($top_destination->image)
+                                        <a href="#"> <img src="{{ $top_destination->get_image() }}" alt="{{ $top_destination->district_name }}"></a>
+                                    @else
+                                        <a href="#"> <img src="{{ asset('public/assets/uploads/default_designation.jpg') }}" alt="{{ $top_destination->district_name }}"></a>
+                                    @endif
+                                </div>
+                                <div class="imageintext">
+                                    <a href="{{ route('front.destination.show', $top_destination->id) }}">
+                                        <h3 class="text-center">{{ $top_destination->district_name }}</h3>
+                                    </a>
+                                    <a href="{{ route('front.destination.show', $top_destination->id) }}">
+                                        <p class="text-center">{{ $top_destination->companies()->count() }} Listings</p>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-3 mt-1">
-                        <div class="inner-image">
-                            <div class="imageininner">
-                                <a href="#"> <img src="{{ asset('public/assets/user/assets/img/ancient-architect-architecture-2104882 (1).jpg') }}" alt=""></a>
-                            </div>
-                            <div class="imageintext">
-                                <a href="#">
-                                    <h3 class="text-center">Kathmandu</h3>
-                                </a>
-                                <a href="#">
-                                    <p class="text-center">185 Listings</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 mt-1">
-                        <div class="inner-image">
-                            <div class="imageininner">
-                                <a href="#"> <img src="{{ asset('public/assets/user/assets/img/ancient-architect-architecture-2104882 (1).jpg') }}" alt=""></a>
-                            </div>
-                            <div class="imageintext">
-                                <a href="#">
-                                    <h3 class="text-center">Kathmandu</h3>
-                                </a>
-                                <a href="#">
-                                    <p class="text-center">185 Listings</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 mt-1">
-                        <div class="inner-image">
-                            <div class="imageininner">
-                                <a href="#"> <img src="{{ asset('public/assets/user/assets/img/architecture-bahnhofstrasse-buildings-773471.jpg') }}" alt=""></a>
-                            </div>
-                            <div class="imageintext">
-                                <a href="#">
-                                    <h3 class="text-center">Kathmandu</h3>
-                                </a>
-                                <a href="#">
-                                    <p class="text-center">185 Listings</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 mt-1">
-                        <div class="inner-image">
-                            <div class="imageininner">
-                                <a href="#"> <img src="{{ asset('public/assets/user/assets/img/ancient-architect-architecture-2104882 (1).jpg') }}" alt=""></a>
-                            </div>
-                            <div class="imageintext">
-                                <a href="#">
-                                    <h3 class="text-center">Kathmandu</h3>
-                                </a>
-                                <a href="#">
-                                    <p class="text-center">185 Listings</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 mt-1">
-                        <div class="inner-image">
-                            <div class="imageininner">
-                                <a href="#"> <img src="{{ asset('public/assets/user/assets/img/ancient-architect-architecture-2104882 (1).jpg') }}" alt=""></a>
-                            </div>
-                            <div class="imageintext">
-                                <a href="#">
-                                    <h3 class="text-center">Kathmandu</h3>
-                                </a>
-                                <a href="#">
-                                    <p class="text-center">185 Listings</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 mt-1">
-                        <div class="inner-image">
-                            <div class="imageininner">
-                                <a href="#"> <img src="{{ asset('public/assets/user/assets/img/architecture-buildings-church-338515.jpg') }}" alt=""></a>
-                            </div>
-                            <div class="imageintext">
-                                <a href="#">
-                                    <h3 class="text-center">Kathmandu</h3>
-                                </a>
-                                <a href="#">
-                                    <p class="text-center">185 Listings</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
-                <a href="" class="btn btn-viewmore">View All <span class="typcn typcn-arrow-right-thick"></span></a>
+                <a href="{{ route('front.destination.index') }}" class="btn btn-viewmore">View All <span class="typcn typcn-arrow-right-thick"></span></a>
             </div>
         </section>
         <section id="lost" class="section-padding">

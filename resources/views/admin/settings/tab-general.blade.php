@@ -155,7 +155,24 @@
                 <div class="mt-15 half-width">
                     <img src="{{ asset(getConfiguration('login-img')) }}"
                          class="thumbnail img-responsive" style="width: 100px">
+                </div>
+            @endif
+        </div>
+    </div>
+        <div class="form-group{{ $errors->has('front_banner') ? ' has-error' : '' }}">
+        <label for="front_banner" class="col-sm-2 control-label">Banner for front page</label>
+        <div class="col-sm-10">
+            <input type="file" name="front_banner" id="front_banner" class="form-control">
+            @if ($errors->has('front_banner'))
+                <span class="help-block">
+                    {{ $errors->first('front_banner') }}
+                </span>
+            @endif
 
+            @if(getConfiguration('front_banner'))
+                <div class="mt-15 half-width">
+                    <img src="{{ asset(getConfiguration('front_banner')) }}"
+                         class="thumbnail img-responsive" style="width: 100px">
                 </div>
             @endif
         </div>

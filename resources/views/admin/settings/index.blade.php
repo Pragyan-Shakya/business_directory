@@ -33,33 +33,36 @@
                             <div class="nav-tabs-custom">
                                 <ul class="nav nav-tabs">
                                     <li class="active"><a href="#general" data-toggle="tab">General</a></li>
-                                    {{--<li><a href="#header" data-toggle="tab">Header</a></li>--}}
-                                    {{--<li><a href="#home" data-toggle="tab">Home</a></li>--}}
                                     <li><a href="#about" data-toggle="tab">About</a></li>
                                     <li><a href="#social" data-toggle="tab">Social</a></li>
-                                    {{--<li><a href="#tax" data-toggle="tab">Tax</a></li>--}}
                                     <li><a href="#footer" data-toggle="tab">Footer</a></li>
-                                    {{--<li><a href="#ad" data-toggle="tab">Ads</a></li>--}}
-
-                                    {{--<li><a href="#product-archive" data-toggle="tab">Product Archive</a></li>--}}
-                                    {{--<li><a href="#product-single" data-toggle="tab">Product Single</a></li>--}}
                                     <li><a href="#seo" data-toggle="tab">SEO</a></li>
                                     <li><a href="#map" data-toggle="tab">MAP</a></li>
+                                    <li><a href="#listing" data-toggle="tab">Listing</a></li>
+                                    {{--<li><a href="#header" data-toggle="tab">Header</a></li>--}}
+                                    {{--<li><a href="#home" data-toggle="tab">Home</a></li>--}}
+                                    {{--<li><a href="#product-archive" data-toggle="tab">Product Archive</a></li>--}}
+                                    {{--<li><a href="#product-single" data-toggle="tab">Product Single</a></li>--}}
+                                    {{--<li><a href="#tax" data-toggle="tab">Tax</a></li>--}}
+                                    {{--<li><a href="#ad" data-toggle="tab">Ads</a></li>--}}
+
+
                                 </ul>
                                 <div class="tab-content">
                                     @include('admin.settings.tab-general')
-                                    {{--@include('backend.settings.tab-header')--}}
-                                    {{--@include('admin.settings.tab-home')--}}
                                     @include('admin.settings.tab-about')
                                     @include('admin.settings.tab-social')
-                                    {{--@include('admin.settings.tab-tax')--}}
                                     @include('admin.settings.tab-footer')
-                                    {{--@include('admin.settings.tab-ad')--}}
-
-                                    {{--@include('backend.settings.tab-product-archive')--}}
-                                    {{--@include('backend.settings.tab-product-single')--}}
                                     @include('admin.settings.tab-seo')
                                     @include('admin.settings.tab-map')
+                                    @include('admin.settings.tab-listing')
+                                    {{--@include('backend.settings.tab-header')--}}
+                                    {{--@include('admin.settings.tab-home')--}}
+                                    {{--@include('admin.settings.tab-tax')--}}
+                                    {{--@include('admin.settings.tab-ad')--}}
+                                    {{--@include('backend.settings.tab-product-archive')--}}
+                                    {{--@include('backend.settings.tab-product-single')--}}
+
                                 </div>
                                 <!-- /.tab-content -->
                             </div>
@@ -80,10 +83,17 @@
 
 @stop
 
-@push('scripts')
+@section('script')
     <script>
         $(function () {
             $('.select2').select2({placeholder: 'Select Options'});
+            $('#listing_categories').select2(
+                {
+                    placeholder: 'Select 5 Industries to show in menu.',
+                    allowClear: true,
+                    maximumSelectionLength: 5,
+                }
+            );
 
             $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
                 checkboxClass: 'icheckbox_minimal-red',
@@ -91,4 +101,4 @@
             });
         });
     </script>
-@endpush
+@stop

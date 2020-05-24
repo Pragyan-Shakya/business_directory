@@ -1,6 +1,6 @@
 @extends('front.listing.master')
 @section('content')
-    <div class="section-search-area section container container-palette mask-grey" data-parallax="scroll" data-image-src="assets/img/architecture-buildings-church-338515.jpg">
+    <div class="section-search-area section container container-palette mask-grey" data-parallax="scroll" style="background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url('{{ asset(getConfiguration('front_banner')) }}') !important;" data-image-src="assets/img/architecture-buildings-church-338515.jpg">
         <!--<div id="map" class="map-bg"> </div>-->
         <div class="container">
             <div class="body">
@@ -101,7 +101,7 @@
                                                 <div class="left">
                                                     <h2 class="thumbnail-title"><a href="{{ route('front.listing.show', $listing->slug) }}">{{ $listing->title }}</a></h2>
                                                     <div class="options"> <span class="thumbnail-ratings"> {{ $listing->avgReview() }} <i class="icon-star-ratings-{{ $listing->avgReview() }}"></i> </span>
-                                                        <span class="type"> <a href="#">{{ $listing->industry->title }}</a> </span>
+                                                        <span class="type"> <a href="{{ route('front.industry.show', $listing->industry->slug) }}">{{ $listing->industry->title }}</a> </span>
                                                     </div>
                                                 </div>
                                                 <div class="right">
