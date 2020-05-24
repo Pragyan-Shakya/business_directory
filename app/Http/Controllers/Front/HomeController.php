@@ -33,7 +33,9 @@ class HomeController extends Controller
         $listings = Company::where('status', 'Active')->orderBy('id', 'DESC')->take(5)->get();
         $blogs = Blog::where('status', 'Active')->orderBy('id', 'DESC')->take(5)->get();
         $testimonials = Testimonial::where('status', 'Active')->orderBy('id', 'DESC')->take(5)->get();
-
-        return view('front.index', compact('blogs', 'testimonials', 'listings', 'industries', 'districts'));
+        $top_destinations = District::with('companies')->get()->sortByDesc(function($q){
+           return $q->companies()->count();
+        })->take(8);
+        return view('front.index', compact('top_destinations','blogs', 'testimonials', 'listings', 'industries', 'districts'));
     }
 }

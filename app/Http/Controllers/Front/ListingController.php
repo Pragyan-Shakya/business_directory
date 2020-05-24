@@ -1,27 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
-use App\Http\Traits\CompanyTrait;
-use App\Model\Company;
 use App\Model\Industry;
-use App\Model\Province;
-use App\Repositories\Repository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class CompanyController extends Controller
+class ListingController extends Controller
 {
-    use CompanyTrait;
-
-    protected $model;
-
-    public function __construct(Company $company)
-    {
-        $this->model = new Repository($company);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -29,14 +15,6 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        if($user->isEmployer()){
-            $companies = Company::where('user_id', $user->id)->get();
-            return view('user.company.index', compact('companies'));
-        }
-        else{
-            return redirect()->route('user.index')->with('error', 'Sorry! You are not a employer.');
-        }
 
     }
 
@@ -47,9 +25,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        $industries = Industry::where('status', 'Active')->get();
-        return view('user.company.create', compact('industries'));
-
+        //
     }
 
     /**
@@ -58,7 +34,10 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
+    public function store(Request $request)
+    {
+        //
+    }
 
     /**
      * Display the specified resource.
@@ -66,9 +45,11 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $industry = Industry::where('slug', $slug)->get();
+        $listings = $industry->companies;
+        return view('front.listing.industry', compact('industry', 'listings'));
     }
 
     /**
@@ -79,10 +60,7 @@ class CompanyController extends Controller
      */
     public function edit($id)
     {
-        $company = Company::where('user_id', $id)->first();
-        $provinces = Province::all();
-        $industries = Industry::where('status', 'Active')->get();
-        return view('user.company.edit', compact('company', 'industries', 'provinces'));
+        //
     }
 
     /**
@@ -92,7 +70,10 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
+    public function update(Request $request, $id)
+    {
+        //
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -100,5 +81,8 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
+    public function destroy($id)
+    {
+        //
+    }
 }

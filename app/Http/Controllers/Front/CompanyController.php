@@ -33,10 +33,13 @@ class CompanyController extends Controller
      */
     public function index()
     {
+        $top_destinations = District::with('companies')->get()->sortByDesc(function($q){
+            return $q->companies()->count();
+        })->take(8);
         $listings = Company::where('status', 'Active')->paginate(9);
         $industries = Industry::where('status', 'Active')->get();
         $provinces = Province::all();
-        return view('front.listing.listings', compact('listings', 'industries', 'provinces'));
+        return view('front.listing.listings', compact('listings', 'industries', 'provinces', 'top_destinations'));
     }
 
     /**

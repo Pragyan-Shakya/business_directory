@@ -1,6 +1,6 @@
 @extends('front.listing.master')
 @section('content')
-<div class="section-search-area section container container-palette mask-grey" data-parallax="scroll" data-image-src="assets/img/architecture-buildings-church-338515.jpg">
+<div class="section-search-area section container container-palette mask-grey" data-parallax="scroll" style="background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url('{{ asset(getConfiguration('front_banner')) }}') !important;" data-image-src="assets/img/architecture-buildings-church-338515.jpg">
     <!--<div id="map" class="map-bg"> </div>-->
     <div class="container">
         <div class="body">
@@ -84,23 +84,28 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="owl-carousel owl-theme">
-                        <div class="item"><img src="https://via.placeholder.com/200x100.png?text=Kathmandu (0)" alt="">
-                            <img src="https://via.placeholder.com/200x100.png?text=Kathmandu (0)" alt="" class="mt5"></div>
-                        <div class="item"><img src="https://via.placeholder.com/200x100.png?text=kathmandu (0)" alt="">
-                            <img src="https://via.placeholder.com/200x100.png?text=kathmandu (0)" alt="" class="mt5"></div>
-                        <div class="item"><img src="https://via.placeholder.com/200x100.png?text=Kathmandu (0)" alt="">
-                            <img src="https://via.placeholder.com/200x100.png?text=Kathmandu (0)" alt="" class="mt5"></div>
-                        <div class="item"><img src="https://via.placeholder.com/200x100.png?text=Kathmandu (0)" alt="">
-                            <img src="https://via.placeholder.com/200x100.png?text=Kathmandu (0)" alt="" class="mt5"></div>
-                        <div class="item"><img src="https://via.placeholder.com/200x100.png?text=Kathmandu (0)" alt="">
-                            <img src="https://via.placeholder.com/200x100.png?text=Kathmandu (0)" alt="" class="mt5"></div>
-                        <div class="item"><img src="https://via.placeholder.com/200x100.png?text=Kathmandu (0)" alt="">
-                            <img src="https://via.placeholder.com/200x100.png?text=Kathmandu (0)" alt="" class="mt5"></div>
+                        @foreach($top_destinations->chunk(2) as $top_destination)
+                            @php
+                                $i=0;
+                            @endphp
+                            <div class="item">
+                                @foreach($top_destination as $key => $destination)
+                                    @if($destination->image)
+                                        <img src="{{ $destination->get_image() }}" alt="{{ $destination->district_name }}" class="{{ $i==1?'mt5':'' }}">
+                                    @else
+                                        <img src="{{ asset('public/assets/uploads/default_designation.jpg') }}" alt="{{ $destination->district_name }}" class="{{ $i==1?'mt5':''}}">
+                                    @endif
+                                    @php
+                                        $i++;
+                                    @endphp
+                                @endforeach
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
             <div class="section-title mt-3">
-                <h2 class="title">SubCategory Listing</h2>
+                <h2 class="title">{{ isset($title)?$title:'Listings' }}</h2>
                 {{--<span class="subtitle">Maecenas mauris arcu, congue ac lorem vel libero.</span>--}}
             </div>
             <div class="row">
@@ -124,7 +129,7 @@
                                             <div class="left">
                                                 <h2 class="thumbnail-title"><a href="{{ route('front.listing.show', $listing->slug) }}">{{ $listing->title }}</a></h2>
                                                 <div class="options"> <span class="thumbnail-ratings"> {{ $listing->avgReview() }} <i class="icon-star-ratings-{{ $listing->avgReview() }}"></i> </span>
-                                                    <span class="type"> <a href="#">{{ $listing->industry->title }}</a> </span>
+                                                    <span class="type"> <a href="{{ route('front.industry.show', $listing->industry->slug) }}">{{ $listing->industry->title }}</a> </span>
                                                 </div>
                                             </div>
                                             <div class="right">

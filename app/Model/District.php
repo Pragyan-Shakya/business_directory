@@ -9,6 +9,7 @@ class District extends Model
     protected $fillable = [
         'province_id',
         'district_name',
+        'image',
     ];
 
     public function province(){
@@ -17,5 +18,18 @@ class District extends Model
 
     public function municipals(){
         return $this->hasMany(Municipal::class);
+    }
+
+    public function companies(){
+        return $this->hasMany(Company::class);
+    }
+
+    public function get_image(){
+        if(filter_var($this->image, FILTER_VALIDATE_URL)){
+            return $this->image;
+        }
+        else{
+            return asset($this->image);
+        }
     }
 }

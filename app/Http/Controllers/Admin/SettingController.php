@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Model\Configuration;
+use App\Model\Industry;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
@@ -22,7 +23,8 @@ class SettingController extends Controller
      */
     public function index()
     {
-        return view('admin.settings.index');
+        $industries = Industry::where('status', 'Active')->get();
+        return view('admin.settings.index', compact('industries'));
     }
 
     /**
@@ -105,7 +107,9 @@ class SettingController extends Controller
             'keywords',
             'description',
             'login-img',
-            'google_map'
+            'google_map',
+            'listing_categories',
+            'front_banner'
         );
 
         foreach ($inputs as $inputKey => $inputValue) {
@@ -114,6 +118,7 @@ class SettingController extends Controller
                 $inputKey == 'site_favicon' ||
                 $inputKey == 'footer_logo' ||
                 $inputKey == 'payments_logo' ||
+                $inputKey == 'front_banner' ||
                 $inputKey == 'login-img') {
                 $file = $inputValue;
                 // Delete old file
@@ -121,6 +126,9 @@ class SettingController extends Controller
                 // Upload file & get store file name
                 $fileName = $this->uploadFile($file);
                 $inputValue = $fileName;
+            }
+            if( $inputKey == 'listing_categories'){
+                $inputValue = json_encode($inputValue);
             }
 
             Configuration::updateOrCreate(['configuration_key' => $inputKey], ['configuration_value' => $inputValue]);

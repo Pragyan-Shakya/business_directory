@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Notice Bank | Home Business Directory</title>
+    <title>Notice Bank | @yield('title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="assets/" type="image/x-icon" />
@@ -46,10 +46,15 @@
                 <ul class="nav navbar-nav nav-items default-menu" id="main-menu">
                     <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">Place <span class="caret"></span> </a>
                         <ul class="dropdown-menu">
-                            <li><a href="subcategory.php">Business</a></li>
-                            <li><a href="subcategory.php">Restaurant</a></li>
-                            <li><a href="subcategory.php">Hotel</a></li>
-                            <li><a href="subcategory.php">Shopping Mall</a></li>
+                            @php
+                                $results = json_decode(getConfiguration('listing_categories'));
+                            @endphp
+                            @foreach($results as $result)
+                                @php
+                                    $industry = \App\Model\Industry::find($result);
+                                @endphp
+                                <li><a href="{{ route('front.industry.show', $industry->slug) }}">{{ $industry->title }}</a></li>
+                            @endforeach
                         </ul>
                     </li>
                     <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">Lost & Found <span class="caret"></span> </a>

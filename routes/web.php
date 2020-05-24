@@ -54,6 +54,8 @@ Route::group([
     Route::resource('/testimonial', 'TestimonialController');
     //////////////////// Blog
     Route::resource('/blog', 'BlogController');
+    //////////////////// Destination
+    Route::resource('/destination', 'DestinationController');
     //////////////////// Moderator
     Route::get('/moderator/getCompanies/{id}', 'ModeratorController@getCompanies')->name('moderator.getCompanies');
     Route::get('/moderator/getUsers/{id}', 'ModeratorController@getUsers')->name('moderator.getUsers');
@@ -111,6 +113,10 @@ Route::group([
     Route::resource('/review', 'ReviewController');
     ///////Search
     Route::get('/listing-search', 'SearchController@listing_search')->name('listing_search');
+    ///////Industry
+    Route::resource('/industry', 'IndustryController');
+    ///////Destination
+    Route::resource('/destination', 'DestinationController');
 });
 
 Route::get('/getDistrict', 'LocationController@getDistrict')->name('getDistrict');

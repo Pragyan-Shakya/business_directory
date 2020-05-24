@@ -1,7 +1,7 @@
 <div class="tabcontent" id="events">
     <div class="row">
         @php
-            $events = $listing->events()->where('status', 'Active')->paginate(1);
+            $events = $listing->events()->where('status', 'Active')->paginate(5);
         @endphp
         @foreach($events as $event )
             <div class="col-md-6">

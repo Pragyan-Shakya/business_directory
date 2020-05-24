@@ -12,4 +12,8 @@ class Industry extends Model
         'status',
         'top',
     ];
+
+    public function companies(){
+        return $this->hasMany(Company::class, 'industry_id');
+    }
 }
